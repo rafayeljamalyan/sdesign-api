@@ -9,6 +9,9 @@ const requestValidations = {
 	},
 	'reset-password': {
 		'email': { required: true, email: true }
+	},
+	'verify-reset-password': {
+		'resetCode': { required: true }		
 	}
 }
 

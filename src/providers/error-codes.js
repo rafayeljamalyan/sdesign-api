@@ -26,3 +26,4 @@ export const _CANT_VERIFY_JWT_ = 2001;
 export const _CANT_CREATE_JWT_ = 2003;
 export const _CANT_HASH_PASSWORD_ = 2002;
 export const _CANT_SEND_EMAIL_ = 2003;
+export const _CANT_VERIFY_RESET_TOKEN_ = 2004;

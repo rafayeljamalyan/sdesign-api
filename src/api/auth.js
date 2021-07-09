@@ -1,6 +1,6 @@
 // deps
 import { Router } from 'express';
-import { loginController, resetPasswordController } from '../controllers/auth';
+import { loginController, resetPasswordController, verifyResetPasswordController } from '../controllers/auth';
 import validate from '../middlewares/validate';
 const router = Router();
 // import formidableMiddleware from 'express-formidable';
@@ -9,6 +9,8 @@ const router = Router();
 router.post( `/login`, validate(`login`), loginController );
 
 router.post( `/reset-password`, validate( `reset-password` ), resetPasswordController );
+
+router.post( `/verify-reset-password`, validate( `verify-reset-password` ), verifyResetPasswordController );
 
 export default router;
 
