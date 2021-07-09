@@ -9,6 +9,7 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-async-promise-executor": "off"
+        "no-async-promise-executor": "off",
+        "no-mixed-spaces-and-tabs": "off"
     }
 }

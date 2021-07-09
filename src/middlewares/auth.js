@@ -1,15 +1,16 @@
 import jwt from 'jsonwebtoken';
+import { _UNAUTHORIZED_ } from '../providers/error-codes';
 import {
     getTokenDataFromRequest
 } from './../lib/r-back.lib'
 
 
-export const secretJwtKey = `E_859.691-tr`;
+export const secretJwtKey = `secfgS2354-14!`;
 export const authMiddleware = (rq, rsp, next) => {
     try {
         let token = getTokenDataFromRequest(rq);
 
-        if (token) {
+        if ( token ) {
             const decoded = jwt.verify(token, secretJwtKey);
             rq.authenticated = true;
             rq.tokenData = decoded;
@@ -18,17 +19,11 @@ export const authMiddleware = (rq, rsp, next) => {
             throw new Error();
 
     } catch (err) {
-        // TODO
-        // check if ther is a need to
-        // pass to next middleware sometime
-        rq.authenticated = false;
-
-        rsp.status(401).json({
-            errCode: 2,
-            errMessage: `this resource is accessible only for authenticated users`,
+        return rsp.status(401).json({
+            errCode: _UNAUTHORIZED_,
+            errMessage: `This resource is accessible only for authenticated users`,
             body: {}
-        })
-        return;
+        });        
     }
     next();
 }
