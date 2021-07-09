@@ -1,0 +1,26 @@
+{
+  "name": "coursers-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node  src/index.js",
+    "start": "node --experimental-modules --es-module-specifier-resolution=node  src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.6.2",
+    "nodemon": "^2.0.8"
+  },
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^7.29.0"
+  }
+}
