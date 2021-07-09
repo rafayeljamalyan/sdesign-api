@@ -6,6 +6,9 @@ const requestValidations = {
 	'login': {
 		'email': { required: true, email: true },
 		'password': { required: true, minLength: 8 }
+	},
+	'reset-password': {
+		'email': { required: true, email: true }
 	}
 }
 

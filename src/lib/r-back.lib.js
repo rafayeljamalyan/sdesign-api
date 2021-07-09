@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import nodemailer from 'nodemailer';
+import { _CANT_SEND_EMAIL_ } from '../providers/error-codes';
 
 
 /** r_function */
@@ -72,8 +73,10 @@ export const uploadFile =  ( file, fpath = `` ) => new Promise( ( rslv, rjct ) =
 /** r_function */
 export const sendMail = ( subject, content, reciever ) => new Promise(( rslv, rjct ) =>{
     const mailConfig = {
-        email: `fantasyitcenter@gmail.com`,
-        emailPassword: `Hpt99gold`
+        // eslint-disable-next-line no-undef
+        email: process.env.EMAIL,
+        // eslint-disable-next-line no-undef
+        emailPassword: process.env.EMAIL_PASS
     }
 
     const transporter = nodemailer.createTransport({
@@ -93,12 +96,10 @@ export const sendMail = ( subject, content, reciever ) => new Promise(( rslv, rj
 
     transporter.sendMail( mailOptions, function(error){ //info as second param
         if (error) {
-            rjct({
-                statusCode: 501,
-                errCode: 50,
-                errMessage: `can't send mail to ${ reciever }`
-            })
-            return;
+            return rjct({
+                code: _CANT_SEND_EMAIL_,
+                message: `Can't send mail to ${ reciever }`
+            });
         }
         rslv(`ok`);
     })

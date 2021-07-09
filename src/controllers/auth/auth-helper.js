@@ -63,3 +63,18 @@ export const getAdminUser = async ( email ) => {
         return null;
     }
 } 
+
+export const genereteResetCode = () => {
+    const nums = `0123456789`;
+    let res = ``;
+    for (let i = 0; i < 4; i++) {
+        res += nums[ randomNumber( 0, 9 ) ];
+    }
+    return res;
+}
+
+/** r_function */
+function randomNumber ( from, to ) {
+    return Math.round( Math.random() * Math.abs( to - from ) ) + from;
+}
+

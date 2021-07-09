@@ -1,12 +1,14 @@
 // deps
 import { Router } from 'express';
-import { loginController } from '../controllers/auth';
+import { loginController, resetPasswordController } from '../controllers/auth';
 import validate from '../middlewares/validate';
 const router = Router();
 // import formidableMiddleware from 'express-formidable';
 // import jwt from 'jsonwebtoken';
 
 router.post( `/login`, validate(`login`), loginController );
+
+router.post( `/reset-password`, validate( `reset-password` ), resetPasswordController );
 
 export default router;
 
