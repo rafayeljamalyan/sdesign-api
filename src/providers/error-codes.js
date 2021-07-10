@@ -4,6 +4,7 @@ export const _EMAIL_OR_PASSWORD_IS_INCORRECT_= 101;
 export const _WRONG_USER_CREDENTIALS_= 109;
 export const _CANT_REFRESH_TOKEN_ = 113;
 export const _INVALID_REFRESH_TOKEN_ = 114;
+export const _NOT_VERIFIED_TO_CHANGE_PASSWORD_ = 115;
 
 // client
 export const _UNAUTHORIZED_ = 430;
@@ -27,3 +28,4 @@ export const _CANT_CREATE_JWT_ = 2003;
 export const _CANT_HASH_PASSWORD_ = 2002;
 export const _CANT_SEND_EMAIL_ = 2003;
 export const _CANT_VERIFY_RESET_TOKEN_ = 2004;
+export const _WRONG_RESET_PASSWORD_TOKEN_ = 2005;

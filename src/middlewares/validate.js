@@ -7,12 +7,15 @@ const requestValidations = {
 		'email': { required: true, email: true },
 		'password': { required: true, minLength: 8 }
 	},
-	'reset-password': {
+	'start-reset-password': {
 		'email': { required: true, email: true }
 	},
 	'verify-reset-password': {
 		'resetCode': { required: true }		
-	}
+	},
+	'reset-password': {
+		'new-password': { required: true, minLength: 8 }
+	},
 }
 
 const expectedItems = {};
