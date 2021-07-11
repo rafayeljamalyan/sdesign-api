@@ -1,5 +1,5 @@
-import dataRouter from './data';
-import authRouter from './auth';
+import dataRouter from './data.js';
+import authRouter from './auth.js';
 
 export default [
     {
