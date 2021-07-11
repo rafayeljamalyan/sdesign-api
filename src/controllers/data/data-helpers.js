@@ -16,7 +16,6 @@ import resourses from './resource-info';
 //  */
 export const getData = ( resourceName, params = {} ) => new Promise( async ( rslv, rjct ) =>{
     const resourseInfo = getResourceInfo( resourceName );
-    console.log( resourseInfo );
     if ( resourseInfo ) {
         switch ( resourseInfo.type ) {
             case `db`:
