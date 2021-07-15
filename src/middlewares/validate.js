@@ -16,6 +16,11 @@ const requestValidations = {
 	'reset-password': {
 		'new-password': { required: true, minLength: 8 }
 	},
+	'send-notification': {
+		'sender-email': { required: true, email: true },
+		"sender-name": {required: true},
+		"content": {required: true},
+	}
 }
 
 const expectedItems = {};

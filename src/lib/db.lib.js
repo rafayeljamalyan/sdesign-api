@@ -27,11 +27,12 @@ export const exec = ( query, params = [] ) => new Promise( (rslv, rjct) =>{
         query = db.format( query, params );
     }
     db.query( query, ( err, res ) => {
-        if ( err )
+        if ( err ){
             rjct( {
                 errMessage: `Can't execute query: ${ query }`,
                 errCode: _UNKNOWN_ERROR_
             });
+        }
         else
             rslv( res );
     });

@@ -5,6 +5,9 @@ import path from 'path';
 import apiRouter from './api';
 
 const app = express();
+
+app.use('/public',express.static('./public/files'))
+
 app.use( express.json() );
 app.use( express.urlencoded({ extended: true }) );
 app.use( cors() );

@@ -66,6 +66,7 @@ export const getData = ( resourceName, params = {} ) => new Promise( async ( rsl
 // // });
 
 export const addNewItem = ( key, data ) => new Promise( async ( rslv, rjct ) =>{
+    console.log(data);
     const resourseInfo = getResourceInfo( key );
     if ( resourseInfo ) {
         switch ( resourseInfo.type ) {
@@ -94,7 +95,6 @@ export const addNewItem = ( key, data ) => new Promise( async ( rslv, rjct ) =>{
 });
 
 export const deteleItem = ( key, id ) => new Promise( async ( rslv, rjct ) =>{
-    console.log(1);
     const resourseInfo = getResourceInfo( key ); 
     if ( resourseInfo ) {
         switch ( resourseInfo.type ) {
