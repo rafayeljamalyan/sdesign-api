@@ -30,9 +30,11 @@ export const loginController = async ( rq, rsp ) => {
 
 export const startResetPasswordController = async ( rq, rsp ) => {
     const result = getResponseTemplate();
+    
 
     try {
         const resetCode = genereteResetCode();
+        console.log(resetCode);
         await sendMail( `RESET PASSWORD`, `reset code - ${ resetCode }`, rq.body.email );
         const token = await getToken( { resetCode, email: rq.body.email } );
         result.body.data.token = token;

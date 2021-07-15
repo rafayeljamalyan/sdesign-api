@@ -26,11 +26,12 @@ export function getCookieValue ( cookies, key ){
 
 export const getFilePath = url => {
     // eslint-disable-next-line no-undef
-    return  path.join( __dirname, `..`, url );
+    return  path.join( path.resolve( path.dirname('') ), url );
 }
 
 export const getTokenDataFromRequest = rq => {
     let token = rq.header(`token`);
+    console.log(token);
     if ( token === undefined ) {
         const cookies = rq.header(`cookie`);
         token = getCookieValue(cookies,`token`);
@@ -51,12 +52,13 @@ export const uploadFile =  ( file, fpath = `` ) => new Promise( ( rslv, rjct ) =
             })
             return;
         }
-        const filePath = path.join( getFilePath( path.join( `..`,`public`, `files`,fpath ) ), file.name );
+        const filePath = path.join( getFilePath( path.join( `public`, `files`, fpath ) ), file.name );
         fs.writeFile(
             filePath,
             data,
             ( err ) => {
                 if( err ) {
+                    console.log( err );
                     rjct({
                         message: `can't upload file`
                     })
@@ -71,7 +73,7 @@ export const uploadFile =  ( file, fpath = `` ) => new Promise( ( rslv, rjct ) =
 })
 
 /** r_function */
-export const sendMail = ( subject, content, reciever ) => new Promise(( rslv, rjct ) =>{
+export const sendMail = ( subject, content, reciever ) => new Promise(( rslv, rjct ) =>{ 
     const mailConfig = {
         // eslint-disable-next-line no-undef
         email: process.env.EMAIL,
@@ -96,6 +98,7 @@ export const sendMail = ( subject, content, reciever ) => new Promise(( rslv, rj
 
     transporter.sendMail( mailOptions, function(error){ //info as second param
         if (error) {
+            console.log(error);
             return rjct({
                 code: _CANT_SEND_EMAIL_,
                 message: `Can't send mail to ${ reciever }`

@@ -1,4 +1,4 @@
-import { get } from '../../lib/db.lib';
+import { add, get, deleteFromTable } from '../../lib/db.lib';
 import { db } from '../../providers/db';
 import { _RESOURCE_NOT_FOUND_ } from '../../providers/error-codes';
 import resourses from './resource-info';
@@ -6,14 +6,13 @@ import resourses from './resource-info';
 // import { db } from '../../providers/db';
 // import { _RESOURCE_NOT_FOUND_ } from '../../providers/error-codes';
 
-// // const helpers = {};
 
-// /** r_function
-//  *
-//  * @param parmas OBJECT
-//  * you can pass 'limits' to specify
-//  * for example specific row id
-//  */
+/** r_function
+ *
+ * @param parmas OBJECT
+ * you can pass 'limits' to specify
+ * for example specific row id
+ */
 export const getData = ( resourceName, params = {} ) => new Promise( async ( rslv, rjct ) =>{
     const resourseInfo = getResourceInfo( resourceName );
     if ( resourseInfo ) {
@@ -66,125 +65,62 @@ export const getData = ( resourceName, params = {} ) => new Promise( async ( rsl
 // //         });
 // // });
 
-// export const addNewItem = ( key, data ) => new Promise( async ( rslv, rjct ) =>{
-//     const resourseInfo = getResourceInfo( key );
-//     if ( resourseInfo ) {
-//         switch ( resourseInfo.type ) {
-//             case `db`:
-//                 try {
-//                     const res = await add( resourseInfo.table, data );
-//                     rslv( {
-//                         insertId: res.insertId,
-//                         message: `New item successfully added into ${ resourseInfo.table }`
-//                     });
-//                 }
-//                 catch ( err ) {
-//                     rjct( err );
-//                 }
-//                 break;
-//             case `file`:
-//                 console.log( `Add to file` );
-//                 break;
-//         }
-//     }
-//     else
-//         rjct({
-//             errCode: _RESOURCE_NOT_FOUND_,
-//             errMessage: `Resource not found`
-//         });
-// });
+export const addNewItem = ( key, data ) => new Promise( async ( rslv, rjct ) =>{
+    const resourseInfo = getResourceInfo( key );
+    if ( resourseInfo ) {
+        switch ( resourseInfo.type ) {
+            case `db`:
+                try {
+                    const res = await add( resourseInfo.table, data );
+                    rslv( {
+                        insertId: res.insertId,
+                        message: `New item successfully added into ${ resourseInfo.table }`
+                    });
+                }
+                catch ( err ) {
+                    rjct( err );
+                }
+                break;
+            case `file`:
+                console.log( `Add to file` );
+                break;
+        }
+    }
+    else
+        rjct({
+            code: _RESOURCE_NOT_FOUND_,
+            message: `Resource not found`
+        });
+});
 
-// // helpers.addFoodItemsForMeal = ( foodItems, mealId ) => new Promise( async ( rslv, rjct ) => {
-
-// // 	try {
-// // 		const res = await Promise.all(
-// // 			foodItems.map( item => dbHelper.add( `meal-food-items`, {
-// // 					mealId,
-// // 					'food-item-id': item.foodItemId,
-// // 					'food-item-quantity': item.quantity
-// // 			}))
-// // 		)
-// // 		rslv({
-// // 				message: `new food items successfully added`
-// // 		});
-// // 	}
-// // 	catch ( err ) {
-// // 		rjct({
-// // 			statusCode: 500,
-// // 			errCode: 5,
-// // 			errMessage: `cant add food items of meal`
-// // 		});
-// // 	}
-// // })
-
-// // helpers.updateFoodItemsForMeal = ( foodItems, mealId ) => new Promise ( async ( rslv, rjct ) =>{
-
-// // 	let deleteQuery = `DELETE FROM \`meal-food-items\` WHERE mealId = ?;`
-// // 	deleteQuery = db.format( deleteQuery, [ [ mealId ] ] )
-// // 	try {
-// // 		const rslt = await dbHelper.exec( deleteQuery );
-// // 		await helpers.addFoodItemsForMeal( foodItems, mealId );
-// // 		rslv( { message: `ok` } );
-// // 	}
-// // 	catch( err ) {
-// // 		rjct( err );
-// // 	}
-// // })
-
-// export const updateData = ( key, id, data ) => new Promise( async ( rslv, rjct ) => {
-//     const resourseInfo = getResourceInfo( key );
-//     if ( resourseInfo ) {
-//         switch ( resourseInfo.type ) {
-//             case `db`:
-//                 try {
-//                     await update( resourseInfo.table, id, data );
-//                     rslv( {
-//                         message: `The item with id ${id} in table ${ resourseInfo.table } successfully updated!`
-//                     });
-//                 }
-//                 catch ( err ) {
-//                     rjct( err );
-//                 }
-//                 break;
-//             case `file`:
-//                 console.log( `Update in file` );
-//                 break;
-//         }
-//     }
-//     else
-//         rjct({
-//             errCode: _RESOURCE_NOT_FOUND_,
-//             errMessage: `Resource not found`
-//         });
-// });
-
-// export const deleteData = ( key, id, field ) => new Promise( async ( rslv, rjct ) =>{
-//     const resourseInfo = getResourceInfo( key );
-//     if ( resourseInfo ) {
-//         switch ( resourseInfo.type ) {
-//             case `db`:
-//                 try {
-//                     await deleteFromTable( resourseInfo.table, id, field );
-//                     rslv( {
-//                         message: `The item with ${field ? `field` :  `id`} ${ field ? field: id} deleted from  table ${ resourseInfo.table }`
-//                     });
-//                 }
-//                 catch ( err ) {
-//                     rjct( err );
-//                 }
-//                 break;
-//             case `file`:
-//                 console.log( `Delete from file` );
-//                 break;
-//         }
-//     }
-//     else
-//         rjct({
-//             errCode: _RESOURCE_NOT_FOUND_,
-//             errMessage: `Resource not found`
-//         });
-// });
-
+export const deteleItem = ( key, id ) => new Promise( async ( rslv, rjct ) =>{
+    console.log(1);
+    const resourseInfo = getResourceInfo( key ); 
+    if ( resourseInfo ) {
+        switch ( resourseInfo.type ) {
+            case `db`:
+                try {
+                    await deleteFromTable( resourseInfo.table, id );
+                    rslv( { 
+                        message: `Item deleted successfully from ${ resourseInfo.table }`
+                    });
+                }
+                catch ( err ) {
+                    rjct( err );
+                }
+                break;
+            case `file`:
+                console.log( `Add to file` );
+                break;
+        }
+    }
+    else
+        rjct({
+            code: _RESOURCE_NOT_FOUND_,
+            message: `Resource not found`
+        });
+});
+ 
 function getResourceInfo ( key ) {
     return resourses.find( resourse => resourse.key === key );
 }

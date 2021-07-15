@@ -1,6 +1,6 @@
 import { getResponseTemplate } from "../../lib/r-back.lib";
-import { _RESOURCE_NOT_FOUND_ } from "../../providers/error-codes";
-import { getData } from "./data-helpers";
+import { _CANT_INSERT_NEW_VALUE_, _RESOURCE_NOT_FOUND_ } from "../../providers/error-codes";
+import { addNewItem, deteleItem, getData } from "./data-helpers";
 
 export const crudGetController = async ( rq, rsp ) => {
 	const result = getResponseTemplate();
@@ -17,3 +17,39 @@ export const crudGetController = async ( rq, rsp ) => {
     
 	rsp.status(result.status).json(result.body);
 };
+
+export const crudPostController = type => async ( rq, rsp ) => {
+	const result = getResponseTemplate();
+	const resource = rq.params.resource;
+    const payload = type === `form` ? rq.fields : rq.body;
+    
+    try {
+        const dbAnswer = await addNewItem( resource, payload );
+        result.body.data = dbAnswer;
+    } catch (err) {
+        console.log( err );
+        result.status = 400;
+        result.body.errCode = _CANT_INSERT_NEW_VALUE_;
+        result.body.errMessage = `Can't add new item`;
+    }
+    rsp.status(result.status).json(result.body);
+        
+}
+
+export const crudDeleteController = async ( rq, rsp ) => {
+	const result = getResponseTemplate();
+	const resource = rq.params.resource; 
+    const payload =  rq.body;
+    
+    try { 
+        const dbAnswer = await deteleItem( resource, payload.id );
+        result.body.data = dbAnswer; 
+    } catch (err) {
+        console.log( err );
+        result.status = 400;
+        result.body.errCode = _CANT_INSERT_NEW_VALUE_;
+        result.body.errMessage = `Can't add new item`;
+    }
+    rsp.status(result.status).json(result.body);
+        
+}

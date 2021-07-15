@@ -21,6 +21,7 @@ export const _UNKNOWN_ERROR_= 1000;
 export const _ITEMS_NOT_FOUND_= 1008;
 export const _USER_ALREADY_EXISTS_= 1009;
 export const _SETTINGS_OF_USER_ALREADY_EXISTS_ = 1010;
+export const _CANT_INSERT_NEW_VALUE_ = 1051;
 
 // other
 export const _CANT_VERIFY_JWT_ = 2001;
