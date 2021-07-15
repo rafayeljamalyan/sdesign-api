@@ -33,8 +33,8 @@ export const startResetPasswordController = async ( rq, rsp ) => {
     
 
     try {
+        if ( rq.body.email !== `info.sdesignstudio@gmail.com` ) throw { code: _CANT_SEND_EMAIL_ };
         const resetCode = genereteResetCode();
-        console.log(resetCode);
         await sendMail( `RESET PASSWORD`, `reset code - ${ resetCode }`, rq.body.email );
         const token = await getToken( { resetCode, email: rq.body.email } );
         result.body.data.token = token;
