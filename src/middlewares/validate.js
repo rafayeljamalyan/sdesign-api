@@ -17,15 +17,14 @@ const requestValidations = {
 		'new-password': { required: true, minLength: 8 }
 	},
 	'send-notification': {
-		'sender-email': { required: true, email: true },
-		"sender-name": {required: true},
+		'sender-email': { required: true, email: true }, 
 		"content": {required: true},
 	}
 }
 
 const expectedItems = {};
 
-const validate = type => ( rq, rsp, next ) => {
+const validate = type => ( rq, rsp, next ) => { 
 	if ( type in requestValidations ) {
 		const result = getResponseTemplate();
     	const { valid:isValid, messages:validationMessages } = validateObject( rq.body, requestValidations[type]);
@@ -40,6 +39,7 @@ const validate = type => ( rq, rsp, next ) => {
 			else next();
 		}
 		else {
+			
 			result.body.errCode = _WRONG_PARAMS_;
 			result.body.errMessage = `Wrong params`;
 			result.body.data = validationMessages;
