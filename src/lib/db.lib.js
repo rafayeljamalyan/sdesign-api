@@ -4,7 +4,7 @@
  */
 
 // internal dependencies
-import { _UNKNOWN_ERROR_ } from '../providers/error-codes';
+import { _UNKNOWN_ERROR_ } from '../providers/error-codes.js';
 import { db } from  './../providers/db';
 
 export const get = ( table, params, specificColumns = [], limits = ``, orderColumns = [] ) => new Promise( ( rslv, rjct ) =>{

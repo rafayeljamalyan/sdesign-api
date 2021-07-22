@@ -1,10 +1,10 @@
 import { Router } from 'express';
 const router = Router();
-import { crudDeleteController, crudGetController, crudPostController , notificationPostController , notificationGetController} from '../controllers/data';
-import { authMiddleware } from '../middlewares/auth';
-import rfileUploader from '../middlewares/rfileUploader';
+import { crudDeleteController, crudGetController, crudPostController , notificationPostController , notificationGetController} from '../controllers/data/index.js';
+import { authMiddleware } from '../middlewares/auth.js';
+import rfileUploader from '../middlewares/rfileUploader.js';
 import formidable from 'express-formidable';
-import validate from '../middlewares/validate';
+import validate from '../middlewares/validate.js';
 
 router.get(`/notifications`,  notificationGetController );
 

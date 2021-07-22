@@ -1,10 +1,10 @@
 import { Router } from 'express';
 const router = Router();
 
-import routes from './routes';
-import { authMiddleware } from './../middlewares/auth';
-import { emailSend } from '../middlewares/emailSend';
-import validate from '../middlewares/validate';
+import routes from './routes.js';
+import { authMiddleware } from './../middlewares/auth.js';
+import { emailSend } from '../middlewares/emailSend.js';
+import validate from '../middlewares/validate.js';
 // const auth = require(`./../middlewares/auth`);
 
 // config routes

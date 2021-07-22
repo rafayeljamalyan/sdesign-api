@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import nodemailer from 'nodemailer';
-import { _CANT_SEND_EMAIL_ } from '../providers/error-codes';
+import { _CANT_SEND_EMAIL_ } from '../providers/error-codes.js';
 
 
 /** r_function */

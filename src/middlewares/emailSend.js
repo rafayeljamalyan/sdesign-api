@@ -1,6 +1,6 @@
 
-import { getResponseTemplate, sendMail } from "../lib/r-back.lib"
-import { _CANT_SEND_EMAIL_ } from "../providers/error-codes";
+import { getResponseTemplate, sendMail } from "../lib/r-back.lib.js"
+import { _CANT_SEND_EMAIL_ } from "../providers/error-codes.js";
 
 export const emailSend = async (rq ,rsp) => {
     const result = getResponseTemplate();

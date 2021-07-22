@@ -1,7 +1,7 @@
 // deps
 import { Router } from 'express';
-import { loginController, resetPasswordController, startResetPasswordController, verifyResetPasswordController } from '../controllers/auth';
-import validate from '../middlewares/validate';
+import { loginController, resetPasswordController, startResetPasswordController, verifyResetPasswordController } from '../controllers/auth/index.js';
+import validate from '../middlewares/validate.js';
 const router = Router();
 
 router.post( `/login`, validate(`login`), loginController );

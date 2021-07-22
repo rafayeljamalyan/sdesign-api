@@ -1,6 +1,6 @@
-import { getResponseTemplate } from "../lib/r-back.lib";
-import { _UNEXPECTED_PARAMS_, _WRONG_PARAMS_ } from "../providers/error-codes";
-import { validateObject } from "../providers/validator";
+import { getResponseTemplate } from "../lib/r-back.lib.js";
+import { _UNEXPECTED_PARAMS_, _WRONG_PARAMS_ } from "../providers/error-codes.js";
+import { validateObject } from "../providers/validator.js";
 
 const requestValidations = {
 	'login': {

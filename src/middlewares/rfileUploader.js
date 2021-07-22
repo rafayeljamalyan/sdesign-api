@@ -3,7 +3,7 @@
  *  12:01
  */
 
-import { uploadFile } from "../lib/r-back.lib";
+import { uploadFile } from "../lib/r-back.lib.js";
 
 
 // dependencies

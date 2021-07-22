@@ -6,10 +6,10 @@
 // deps
 import bcrypt from'bcrypt';
 import jwt from'jsonwebtoken';
-import { get } from '../../lib/db.lib';
-import { db } from '../../providers/db';
-import { _CANT_CREATE_JWT_, _CANT_HASH_PASSWORD_, _CANT_VERIFY_JWT_ } from '../../providers/error-codes';
-import { secretJwtKey } from '../../middlewares/auth';
+import { get } from '../../lib/db.lib.js';
+import { db } from '../../providers/db.js';
+import { _CANT_CREATE_JWT_, _CANT_HASH_PASSWORD_, _CANT_VERIFY_JWT_ } from '../../providers/error-codes.js';
+import { secretJwtKey } from '../../middlewares/auth.js';
 
 const bcryptSaltRounds = 10;
 const passwordsSecret = `fds 331Af!`;

@@ -1,6 +1,6 @@
 // internal deps
-import { _UNAUTHORIZED_, _USER_NOT_FOUND_ } from '../../providers/error-codes';
-import { getAdminUser, getToken, verify } from './auth-helper';
+import { _UNAUTHORIZED_, _USER_NOT_FOUND_ } from '../../providers/error-codes.js';
+import { getAdminUser, getToken, verify } from './auth-helper.js';
 
 export const loginUser = ({ email, password }) => new Promise( async ( rslv, rjct ) => {
     let user = {};

@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { _UNAUTHORIZED_ } from '../providers/error-codes';
+import { _UNAUTHORIZED_ } from '../providers/error-codes.js';
 import {
     getTokenDataFromRequest
-} from './../lib/r-back.lib'
+} from './../lib/r-back.lib.js'
 
 
 export const secretJwtKey = `secfgS2354-14!`;

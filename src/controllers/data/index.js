@@ -1,6 +1,6 @@
-import { getResponseTemplate } from "../../lib/r-back.lib";
-import { _CANT_INSERT_NEW_VALUE_,  _RESOURCE_NOT_FOUND_ } from "../../providers/error-codes";
-import { addNewItem, deteleItem, getData } from "./data-helpers";
+import { getResponseTemplate } from "../../lib/r-back.lib.js";
+import { _CANT_INSERT_NEW_VALUE_,  _RESOURCE_NOT_FOUND_ } from "../../providers/error-codes.js";
+import { addNewItem, deteleItem, getData } from "./data-helpers.js";
 
 
 export const crudGetController = async ( rq, rsp ) => {
