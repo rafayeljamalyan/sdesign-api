@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+dotenv.config();
 import { _CANT_SEND_EMAIL_ } from '../providers/error-codes.js';
 
 

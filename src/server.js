@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
 // local
 import apiRouter from './api/index.js';
 
@@ -27,7 +29,8 @@ app.use((rq, rsp)=>{
 })
 
 export function startServer(){
-    app.listen( PORT, () => {
+    app.listen( PORT, (err) => {
+        console.log( err );
         console.log(`Server started listening on port ${PORT}`);
     })
 }

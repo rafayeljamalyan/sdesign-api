@@ -5,6 +5,8 @@
 
 // dependencies
 import mysql from 'mysql';
+import dotenv from 'dotenv';
+dotenv.config();
 // eslint-disable-next-line no-undef
 const { DB_NAME, DB_HOST, DB_USER, DB_PASSWORD } = process.env;
 
