@@ -1,5 +1,5 @@
 import { add, get, deleteFromTable } from '../../lib/db.lib.js';
-import { db } from '../../providers/db';
+import { db } from '../../providers/db.js';
 import { _RESOURCE_NOT_FOUND_ } from '../../providers/error-codes.js';
 import resourses from './resource-info.js';
 // import { get, add, update, deleteFromTable }  from './../../lib/db.lib';

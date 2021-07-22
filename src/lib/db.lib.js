@@ -5,7 +5,7 @@
 
 // internal dependencies
 import { _UNKNOWN_ERROR_ } from '../providers/error-codes.js';
-import { db } from  './../providers/db';
+import { db } from  './../providers/db.js';
 
 export const get = ( table, params, specificColumns = [], limits = ``, orderColumns = [] ) => new Promise( ( rslv, rjct ) =>{
     const selectQuery = getSelectQuery( table, params, specificColumns, limits, orderColumns );
