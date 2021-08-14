@@ -2,6 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
+import http from 'http';
+import https from 'https';
+import fs from 'fs';
+
 dotenv.config();
 // local
 import apiRouter from './api/index.js';
@@ -17,6 +21,8 @@ app.use( cors() );
 app.use( express.static( path.join( path.resolve( path.dirname('') ),  `public` ) ) );
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3007;
+// eslint-disable-next-line no-undef
+const HTTPS_PORT = process.env.HTTPS_PORT || 3018;
 
 app.use( `/api`, apiRouter );
 
@@ -29,8 +35,11 @@ app.use((rq, rsp)=>{
 })
 
 export function startServer(){
-    app.listen( PORT, (err) => {
-        console.log( err );
-        console.log(`Server started listening on port ${PORT}`);
-    })
+    const options = {
+        key: fs.readFileSync( path.join( path.resolve(), `secret`, `key.pem` ) ),
+        cert: fs.readFileSync( path.join( path.resolve(), `secret`, `cert.pem` ) )
+    }
+    
+    http.createServer(app).listen(PORT);
+    https.createServer(options, app).listen(HTTPS_PORT);
 }
