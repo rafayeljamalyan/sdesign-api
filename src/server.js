@@ -37,7 +37,9 @@ app.use((rq, rsp)=>{
 export function startServer(){
     const options = {
         key: fs.readFileSync( path.join( path.resolve(), `secret`, `key.pem` ) ),
-        cert: fs.readFileSync( path.join( path.resolve(), `secret`, `cert.pem` ) )
+        cert: fs.readFileSync( path.join( path.resolve(), `secret`, `cert.pem` ) ),
+        requestCert: false,
+        rejectUnauthorized: false
     }
     
     http.createServer(app).listen(PORT);
