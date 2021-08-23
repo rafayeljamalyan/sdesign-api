@@ -24,6 +24,19 @@ const PORT = process.env.PORT || 3007;
 // eslint-disable-next-line no-undef
 const HTTPS_PORT = process.env.HTTPS_PORT || 3018;
 
+app.use( (req, res, next) => {
+  const requester = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  logger.info( `REQUEST: ${ requester } ${ req.method.toUpperCase() } ${ req.originalUrl }` );
+  
+  res.writejson = res.json;
+  res.json = (...params) => {
+      logger.info( `RESPONSE FOR: ${ requester } ${ req.method.toUpperCase() } ${ req.originalUrl } ` );
+      logger.info( `RESPONSE: `+ JSON.stringify( params[0] ) );
+      res.writejson( ...params );
+  };
+  next();
+});
+
 app.use( `/api`, apiRouter );
 
 app.use((rq, rsp)=>{

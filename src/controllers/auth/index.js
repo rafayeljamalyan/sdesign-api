@@ -6,6 +6,7 @@ const { secretJwtKey } = require("../../middlewares/auth.js");
 const { _CANT_SEND_EMAIL_, _CANT_VERIFY_RESET_TOKEN_, _EMAIL_OR_PASSWORD_IS_INCORRECT_, _NOT_VERIFIED_TO_CHANGE_PASSWORD_, _UNAUTHORIZED_, _USER_NOT_FOUND_, _WRONG_RESET_PASSWORD_TOKEN_ } = require("../../providers/error-codes.js");
 const { genereteResetCode, getAdminUser, getToken, hashPassword } = require("./auth-helper.js");
 const { loginUser } = require("./login.js");
+const logger = require(`./../../providers/logger`);
 
 const PASSWORD_RESET_VERIFIED = 2;
 
@@ -32,7 +33,7 @@ const loginController = async ( rq, rsp ) => {
 const startResetPasswordController = async ( rq, rsp ) => {
     const result = getResponseTemplate();
     
-
+    logger.info(`BODY reset ` + JSON.stringify( rq.body ) );
     try {
         if ( rq.body.email !== `info.sdesignstudio@gmail.com` ) throw { code: _CANT_SEND_EMAIL_ };
         const resetCode = genereteResetCode();
@@ -41,6 +42,7 @@ const startResetPasswordController = async ( rq, rsp ) => {
         result.body.data.token = token;
     }
     catch ( err ) {
+      logger.info(`ERRR reset ` + JSON.stringify( err ) );
         result.body.errCode = err.code;
         if ( err.code === _CANT_SEND_EMAIL_ ) {
             result.status = 500;
