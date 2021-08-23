@@ -1,10 +1,10 @@
-import { add, get, deleteFromTable } from '../../lib/db.lib.js';
-import { db } from '../../providers/db.js';
-import { _RESOURCE_NOT_FOUND_ } from '../../providers/error-codes.js';
-import resourses from './resource-info.js';
-// import { get, add, update, deleteFromTable }  from './../../lib/db.lib';
-// import { db } from '../../providers/db';
-// import { _RESOURCE_NOT_FOUND_ } from '../../providers/error-codes';
+const { add, get, deleteFromTable } =  require('../../lib/db.lib.js');
+const { db } =  require('../../providers/db.js');
+const { _RESOURCE_NOT_FOUND_ } =  require('../../providers/error-codes.js');
+const resourses =  require('./resource-info.js');
+// const { get, add, update, deleteFromTable }  from './../../lib/db.lib';
+// const { db } from '../../providers/db';
+// const { _RESOURCE_NOT_FOUND_ } from '../../providers/error-codes';
 
 
 /** r_function
@@ -13,7 +13,7 @@ import resourses from './resource-info.js';
  * you can pass 'limits' to specify
  * for example specific row id
  */
-export const getData = ( resourceName, params = {} ) => new Promise( async ( rslv, rjct ) =>{
+exports.getData = ( resourceName, params = {} ) => new Promise( async ( rslv, rjct ) =>{
     const resourseInfo = getResourceInfo( resourceName );
     if ( resourseInfo ) {
         switch ( resourseInfo.type ) {
@@ -65,7 +65,7 @@ export const getData = ( resourceName, params = {} ) => new Promise( async ( rsl
 // //         });
 // // });
 
-export const addNewItem = ( key, data ) => new Promise( async ( rslv, rjct ) =>{
+exports.addNewItem = ( key, data ) => new Promise( async ( rslv, rjct ) =>{
     console.log(data);
     const resourseInfo = getResourceInfo( key );
     if ( resourseInfo ) {
@@ -94,7 +94,7 @@ export const addNewItem = ( key, data ) => new Promise( async ( rslv, rjct ) =>{
         });
 });
 
-export const deteleItem = ( key, id ) => new Promise( async ( rslv, rjct ) =>{
+exports.deteleItem = ( key, id ) => new Promise( async ( rslv, rjct ) =>{
     const resourseInfo = getResourceInfo( key ); 
     if ( resourseInfo ) {
         switch ( resourseInfo.type ) {

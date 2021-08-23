@@ -1,4 +1,4 @@
-export default [
+module.exports = [
 	{
 		key: "projects",
 		type: "db",
@@ -19,4 +19,4 @@ export default [
 		type: "file",
 		path: "/data/settings.json"
 	}
-]
+];

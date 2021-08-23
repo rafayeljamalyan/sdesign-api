@@ -1,15 +1,16 @@
-import jwt from 'jsonwebtoken';
-import { exec } from '../../lib/db.lib.js';
-import { getResponseTemplate, getTokenDataFromRequest, sendMail } from "../../lib/r-back.lib.js";
-import { secretJwtKey } from "../../middlewares/auth.js";
-import { _CANT_SEND_EMAIL_, _CANT_VERIFY_RESET_TOKEN_, _EMAIL_OR_PASSWORD_IS_INCORRECT_, _NOT_VERIFIED_TO_CHANGE_PASSWORD_, _UNAUTHORIZED_, _USER_NOT_FOUND_, _WRONG_RESET_PASSWORD_TOKEN_ } from "../../providers/error-codes.js";
-import { genereteResetCode, getAdminUser, getToken, hashPassword } from "./auth-helper.js";
-import { loginUser } from "./login.js";
+const jwt = require('jsonwebtoken');
+
+const { exec } = require('../../lib/db.lib.js');
+const { getResponseTemplate, getTokenDataFromRequest, sendMail } = require("../../lib/r-back.lib.js");
+const { secretJwtKey } = require("../../middlewares/auth.js");
+const { _CANT_SEND_EMAIL_, _CANT_VERIFY_RESET_TOKEN_, _EMAIL_OR_PASSWORD_IS_INCORRECT_, _NOT_VERIFIED_TO_CHANGE_PASSWORD_, _UNAUTHORIZED_, _USER_NOT_FOUND_, _WRONG_RESET_PASSWORD_TOKEN_ } = require("../../providers/error-codes.js");
+const { genereteResetCode, getAdminUser, getToken, hashPassword } = require("./auth-helper.js");
+const { loginUser } = require("./login.js");
 
 const PASSWORD_RESET_VERIFIED = 2;
 
 
-export const loginController = async ( rq, rsp ) => {  
+const loginController = async ( rq, rsp ) => {  
     const result = getResponseTemplate();
 
     try {
@@ -28,7 +29,7 @@ export const loginController = async ( rq, rsp ) => {
     rsp.status( result.status ).json( result.body ); 
 }
 
-export const startResetPasswordController = async ( rq, rsp ) => {
+const startResetPasswordController = async ( rq, rsp ) => {
     const result = getResponseTemplate();
     
 
@@ -50,7 +51,7 @@ export const startResetPasswordController = async ( rq, rsp ) => {
     rsp.status( result.status ).json( result.body ); 
 }
 
-export const verifyResetPasswordController = async ( rq, rsp ) => {
+const verifyResetPasswordController = async ( rq, rsp ) => {
     const result = getResponseTemplate();
 
     try {        
@@ -72,7 +73,7 @@ export const verifyResetPasswordController = async ( rq, rsp ) => {
     rsp.status( result.status ).json( result.body ); 
 }
 
-export const resetPasswordController = async ( rq, rsp ) => {
+const resetPasswordController = async ( rq, rsp ) => {
     const result = getResponseTemplate();
 
     try {
@@ -115,4 +116,11 @@ export const resetPasswordController = async ( rq, rsp ) => {
     
     rsp.status( result.status ).json( result.body ); 
 }
+
+module.exports = {
+  loginController,
+  startResetPasswordController,
+  verifyResetPasswordController,
+  resetPasswordController
+};
 

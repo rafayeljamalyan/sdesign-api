@@ -4,7 +4,7 @@
  */
 
 // deps
-import validator from "validator";
+const validator = require("validator");
 
 const validators = {
     required: checkRequired,
@@ -97,7 +97,7 @@ function checkDate ( value ) {
 	return result;
 }
 
-export const validate = ( value, vldtrs ) => {
+exports.validate = ( value, vldtrs ) => {
     const result = { valid: true, messages: [] };
     if ( typeof vldtrs === `object` ) {
         const vldtrEntries = Object.entries( vldtrs );
@@ -118,7 +118,7 @@ export const validate = ( value, vldtrs ) => {
     return result;
 }
 
-export const validateObject = ( object, config ) => {
+exports.validateObject = ( object, config ) => {
     const result = { valid: true, messages: {} };
 
     if ( typeof config === `object` ) {
@@ -126,7 +126,7 @@ export const validateObject = ( object, config ) => {
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
             // if key doesnt exist in object it will pass empty string
-            const itemValidState = validate( object[key] || ``, config[key] );
+            const itemValidState = exports.validate( object[key] || ``, config[key] );
             if ( !itemValidState.valid ){
                 result.valid = false;
                 result.messages[key] = itemValidState.messages;

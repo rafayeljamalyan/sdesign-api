@@ -4,10 +4,12 @@
  */
 
 // internal dependencies
-import { _UNKNOWN_ERROR_ } from '../providers/error-codes.js';
-import { db } from  './../providers/db.js';
+const { _UNKNOWN_ERROR_ } = require('../providers/error-codes.js');
+const { db } = require( './../providers/db.js');
 
-export const get = ( table, params, specificColumns = [], limits = ``, orderColumns = [] ) => new Promise( ( rslv, rjct ) =>{
+const lib = {};
+
+lib.get = ( table, params, specificColumns = [], limits = ``, orderColumns = [] ) => new Promise( ( rslv, rjct ) =>{
     const selectQuery = getSelectQuery( table, params, specificColumns, limits, orderColumns );
     db.query( selectQuery, ( err, data ) => {
         if ( err ) 
@@ -22,7 +24,7 @@ export const get = ( table, params, specificColumns = [], limits = ``, orderColu
     });
 });
 
-export const exec = ( query, params = [] ) => new Promise( (rslv, rjct) =>{
+lib.exec = ( query, params = [] ) => new Promise( (rslv, rjct) =>{
     if( params && params.length > 0 ) {
         query = db.format( query, params );
     }
@@ -38,7 +40,7 @@ export const exec = ( query, params = [] ) => new Promise( (rslv, rjct) =>{
     });
 });
 
-export const getDataStructure = table => new Promise( async ( rslv, rjct ) =>{
+lib.getDataStructure = table => new Promise( async ( rslv, rjct ) =>{
     const result = {};
     const structureQuery = getDataStructureQuery( table );
     try {
@@ -54,7 +56,7 @@ export const getDataStructure = table => new Promise( async ( rslv, rjct ) =>{
     }
 });
 
-export const getDataStructureQuery = key => {
+lib.getDataStructureQuery = key => {
     const query = `SELECT ${ getColumnsToSelect( [ `inputs.id`,`table-name`,`col-name`,`disabled`, `required`, `reference-table` ] ) }, \`title\` as 'type' FROM \`inputs\`
                     LEFT JOIN \`input-types\` ON \`input-types\`.\`id\`=\`inputs\`.\`type-id\`
                     WHERE \`table-name\`=${db.format(`?`,[[key]])}
@@ -62,7 +64,7 @@ export const getDataStructureQuery = key => {
     return query;
 };
 
-export const add = ( table, data ) => new Promise( async ( rslv, rjct ) => {
+lib.add = ( table, data ) => new Promise( async ( rslv, rjct ) => {
     if( JSON.stringify( data ).length > 2 ) {
         const insertQuery = getInsertQuery( table, Object.keys( data ), Object.values( data ) );
         try{
@@ -81,7 +83,7 @@ export const add = ( table, data ) => new Promise( async ( rslv, rjct ) => {
     }
 });
 
-export const update = ( table, id, data ) => new Promise( async( rslv, rjct ) =>{
+lib.update = ( table, id, data ) => new Promise( async( rslv, rjct ) =>{
     let updateQuery = db.format( `UPDATE ?? SET `, [ table ]);
     updateQuery += getUpdateQueryKeyValuesPart( data );
     updateQuery += db.format( `WHERE \`id\` = ?;`, [ id ] );
@@ -95,7 +97,7 @@ export const update = ( table, id, data ) => new Promise( async( rslv, rjct ) =>
     }
 });
 
-export const deleteFromTable = ( table, id, field = null ) => new Promise( async ( rslv, rjct ) =>{
+lib.deleteFromTable = ( table, id, field = null ) => new Promise( async ( rslv, rjct ) =>{
     const deleteQuery = getDeleteQuery( table, id, field );
     try{
         await exec( deleteQuery );
@@ -107,7 +109,7 @@ export const deleteFromTable = ( table, id, field = null ) => new Promise( async
     }
 });
 
-export const count = ( table, query = {} ) => new Promise( async (rslv, rjct) => {
+lib.count = ( table, query = {} ) => new Promise( async (rslv, rjct) => {
 	let limits = ``;
 	if ( query && JSON.stringify( query ) !== "{}" ) {
 		limits = ` WHERE `;
@@ -131,7 +133,7 @@ export const count = ( table, query = {} ) => new Promise( async (rslv, rjct) =>
 
 })
 
-export function getTableInfoQuery (db,table){
+lib.getTableInfoQuery = function(db,table){
     return  " SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='"+db+"'  AND `TABLE_NAME`='"+table+"'";
 }
 /** r_function */
@@ -243,3 +245,5 @@ function getDeleteQuery ( table, id, field = null ) {
     }
     return query;
 }
+
+module.exports = lib;

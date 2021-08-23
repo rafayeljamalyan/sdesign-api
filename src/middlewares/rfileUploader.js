@@ -3,7 +3,7 @@
  *  12:01
  */
 
-import { uploadFile } from "../lib/r-back.lib.js";
+const { uploadFile } = require("../lib/r-back.lib.js");
 
 
 // dependencies
@@ -27,4 +27,4 @@ const uploaderMiddleware = async ( rq, rsp, next ) => {
 };
 
 
-export default uploaderMiddleware;
+module.exports = uploaderMiddleware;

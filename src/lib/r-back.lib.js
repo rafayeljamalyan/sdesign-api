@@ -1,13 +1,13 @@
-import fs from 'fs';
-import path from 'path';
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
+const fs = require('fs');
+const path = require('path');
+const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
 dotenv.config();
-import { _CANT_SEND_EMAIL_ } from '../providers/error-codes.js';
+const { _CANT_SEND_EMAIL_ } = require('../providers/error-codes.js');
 
 
 /** r_function */
-export function getResponseTemplate () {
+exports.getResponseTemplate = function () {
     return {
         status: 200,
         body: {
@@ -19,30 +19,30 @@ export function getResponseTemplate () {
 }
 
 /** r_function */
-export function getCookieValue ( cookies, key ){
+exports.getCookieValue = function ( cookies, key ){
     if ( cookies )
         return cookies.split(`; `).map(cookie=>cookie.split(`=`)).filter(el=>el[0]==key)[0][1];
     else
         return null;
 }
 
-export const getFilePath = url => {
+exports.getFilePath = url => {
     // eslint-disable-next-line no-undef
     return  path.join( path.resolve( path.dirname('') ), url );
 }
 
-export const getTokenDataFromRequest = rq => {
+exports.getTokenDataFromRequest = rq => {
     let token = rq.header(`token`);
     console.log(token);
     if ( token === undefined ) {
         const cookies = rq.header(`cookie`);
-        token = getCookieValue(cookies,`token`);
+        token = exports.getCookieValue(cookies,`token`);
     }
     return token || null;
 }
 
 /** r_function */
-export const uploadFile =  ( file, fpath = `` ) => new Promise( ( rslv, rjct ) => {
+exports.uploadFile =  ( file, fpath = `` ) => new Promise( ( rslv, rjct ) => {
 
     file.name =  file.name.substring( 0, file.name.lastIndexOf(`.`) ) +
                 new Date().getTime() + file.name.substring( file.name.lastIndexOf(`.`) );
@@ -54,7 +54,7 @@ export const uploadFile =  ( file, fpath = `` ) => new Promise( ( rslv, rjct ) =
             })
             return;
         }
-        const filePath = path.join( getFilePath( path.join( `public`, `files`, fpath ) ), file.name );
+        const filePath = path.join( exports.getFilePath( path.join( `public`, `files`, fpath ) ), file.name );
         fs.writeFile(
             filePath,
             data,
@@ -75,7 +75,7 @@ export const uploadFile =  ( file, fpath = `` ) => new Promise( ( rslv, rjct ) =
 })
 
 /** r_function */
-export const sendMail = ( subject, content, reciever ) => new Promise(( rslv, rjct ) =>{ 
+exports.sendMail = ( subject, content, reciever ) => new Promise(( rslv, rjct ) =>{ 
     const mailConfig = {
         // eslint-disable-next-line no-undef
         email: process.env.EMAIL,
@@ -120,7 +120,7 @@ const NUMBERS = 3;
 const SYMBOLS = 4;
 
 /** r_function */
-export const generateNewPassword = length => {
+exports.generateNewPassword = length => {
     let res = ``;
     for (let i = 0; i < length; i++) {
         const type = randomNumber( 1, 4 );

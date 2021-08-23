@@ -1,10 +1,10 @@
-import { Router } from 'express';
+const Router = require('express').Router;
 const router = Router();
 
-import routes from './routes.js';
-import { authMiddleware } from './../middlewares/auth.js';
-import { emailSend } from '../middlewares/emailSend.js';
-import validate from '../middlewares/validate.js';
+const routes = require('./routes.js');
+const { authMiddleware } = require('./../middlewares/auth.js');
+const { emailSend } = require('../middlewares/emailSend.js');
+const validate = require('../middlewares/validate.js');
 // const auth = require(`./../middlewares/auth`);
 
 // config routes
@@ -17,4 +17,4 @@ routes.forEach( route =>{
 
 router.post(`/send-msg`, validate("send-notification"), emailSend);
 
-export default router;
+module.exports = router;

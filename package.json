@@ -22,7 +22,6 @@
     "nodemon": "^2.0.8",
     "validator": "^13.6.0"
   },
-  "type": "module",
   "devDependencies": {
     "eslint": "^7.29.0"
   }

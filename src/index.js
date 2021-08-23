@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
+const dotenv = require(`dotenv`);
 dotenv.config();
-import { startServer } from './server.js';
+const server = require('./server.js');
 
-startServer();
+server.startServer();

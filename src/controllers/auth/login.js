@@ -1,8 +1,8 @@
 // internal deps
-import { _UNAUTHORIZED_, _USER_NOT_FOUND_ } from '../../providers/error-codes.js';
-import { getAdminUser, getToken, verify } from './auth-helper.js';
+const { _UNAUTHORIZED_, _USER_NOT_FOUND_ } = require( '../../providers/error-codes.js');
+const { getAdminUser, getToken, verify } = require( './auth-helper.js');
 
-export const loginUser = ({ email, password }) => new Promise( async ( rslv, rjct ) => {
+exports.loginUser = ({ email, password }) => new Promise( async ( rslv, rjct ) => {
     let user = {};
     let isAuthenticated = false;
 

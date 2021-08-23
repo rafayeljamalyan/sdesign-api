@@ -1,17 +1,17 @@
-import jwt from 'jsonwebtoken';
-import { _UNAUTHORIZED_ } from '../providers/error-codes.js';
-import {
+const jwt = require('jsonwebtoken');
+const { _UNAUTHORIZED_ } = require('../providers/error-codes.js');
+const {
     getTokenDataFromRequest
-} from './../lib/r-back.lib.js'
+} = require('./../lib/r-back.lib.js');
 
 
-export const secretJwtKey = `secfgS2354-14!`;
-export const authMiddleware = (rq, rsp, next) => {
+exports.secretJwtKey = `secfgS2354-14!`;
+exports.authMiddleware = (rq, rsp, next) => {
     try {
         let token = getTokenDataFromRequest(rq);
 
         if ( token ) {
-            const decoded = jwt.verify(token, secretJwtKey);
+            const decoded = jwt.verify(token, exports.secretJwtKey);
             rq.authenticated = true;
             rq.tokenData = decoded;
         } 

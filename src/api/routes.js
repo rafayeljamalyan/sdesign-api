@@ -1,7 +1,7 @@
-import dataRouter from './data.js';
-import authRouter from './auth.js';
+const dataRouter = require('./data.js');
+const authRouter = require('./auth.js');
 
-export default [
+module.exports = [
     {
         path:"/data",
         // needAuth: true,

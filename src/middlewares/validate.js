@@ -1,6 +1,6 @@
-import { getResponseTemplate } from "../lib/r-back.lib.js";
-import { _UNEXPECTED_PARAMS_, _WRONG_PARAMS_ } from "../providers/error-codes.js";
-import { validateObject } from "../providers/validator.js";
+const { getResponseTemplate } = require( "../lib/r-back.lib.js");
+const { _UNEXPECTED_PARAMS_, _WRONG_PARAMS_ } = require( "../providers/error-codes.js");
+const { validateObject } = require( "../providers/validator.js");
 
 const requestValidations = {
 	'login': {
@@ -50,4 +50,4 @@ const validate = type => ( rq, rsp, next ) => {
 		next();
 }
 
-export default validate;
+module.exports = validate;

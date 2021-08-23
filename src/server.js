@@ -1,14 +1,14 @@
-import express from 'express';
-import cors from 'cors';
-import path from 'path';
-import dotenv from 'dotenv';
-import http from 'http';
-import https from 'https';
-import fs from 'fs';
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const dotenv = require('dotenv');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
 
 dotenv.config();
 // local
-import apiRouter from './api/index.js';
+const apiRouter = require( './api/index.js' );
 
 const app = express();
 
@@ -34,15 +34,17 @@ app.use((rq, rsp)=>{
     })
 })
 
-export function startServer(){
-//     const options = {
-//         key: fs.readFileSync( path.join( path.resolve(), `secret`, `key.pem` ) ),
-//         cert: fs.readFileSync( path.join( path.resolve(), `secret`, `cert.pem` ) ),
-//         requestCert: false,
-//         rejectUnauthorized: false
-//     }
+module.exports = {
+  startServer(){
+  //     const options = {
+  //         key: fs.readFileSync( path.join( path.resolve(), `secret`, `key.pem` ) ),
+  //         cert: fs.readFileSync( path.join( path.resolve(), `secret`, `cert.pem` ) ),
+  //         requestCert: false,
+  //         rejectUnauthorized: false
+  //     }
     
-//     http.createServer(app).listen(PORT);
+  //     http.createServer(app).listen(PORT);
     http.createServer(app).listen();
-//     https.createServer(options, app).listen(HTTPS_PORT);
+  //     https.createServer(options, app).listen(HTTPS_PORT);
+  }
 }

@@ -1,9 +1,9 @@
-import { getResponseTemplate } from "../../lib/r-back.lib.js";
-import { _CANT_INSERT_NEW_VALUE_,  _RESOURCE_NOT_FOUND_ } from "../../providers/error-codes.js";
-import { addNewItem, deteleItem, getData } from "./data-helpers.js";
+const { getResponseTemplate } = require( "../../lib/r-back.lib.js");
+const { _CANT_INSERT_NEW_VALUE_,  _RESOURCE_NOT_FOUND_ } = require( "../../providers/error-codes.js");
+const { addNewItem, deteleItem, getData } = require( "./data-helpers.js");
 
 
-export const crudGetController = async ( rq, rsp ) => {
+exports.crudGetController = async ( rq, rsp ) => {
 	const result = getResponseTemplate();
 	try {
 		const items = await getData( rq.params.resource );
@@ -19,7 +19,7 @@ export const crudGetController = async ( rq, rsp ) => {
 	rsp.status(result.status).json(result.body);
 };
 
-export const crudPostController = type => async ( rq, rsp ) => {
+exports.crudPostController = type => async ( rq, rsp ) => {
 	const result = getResponseTemplate();
 	const resource = rq.params.resource;
     const payload = type === `form` ? rq.fields : rq.body;
@@ -37,7 +37,7 @@ export const crudPostController = type => async ( rq, rsp ) => {
     rsp.status(result.status).json(result.body);  
 }
 
-export const crudDeleteController = async ( rq, rsp ) => {
+exports.crudDeleteController = async ( rq, rsp ) => {
 	const result = getResponseTemplate();
 	const resource = rq.params.resource; 
     const payload =  rq.body;
@@ -55,7 +55,7 @@ export const crudDeleteController = async ( rq, rsp ) => {
         
 }
 
-export const notificationPostController = async ( rq, rsp ) => {
+exports.notificationPostController = async ( rq, rsp ) => {
     const result = getResponseTemplate();
     const payload = rq.body;
     try {
@@ -70,7 +70,7 @@ export const notificationPostController = async ( rq, rsp ) => {
     rsp.status(result.status).json(result.body);  
 }
 
-export const notificationGetController = async ( rq, rsp ) => {
+exports.notificationGetController = async ( rq, rsp ) => {
 	const result = getResponseTemplate();
 	try {
 		const items = await getData( `notifications` );
