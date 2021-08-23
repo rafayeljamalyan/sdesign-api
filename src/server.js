@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const logger = require(`./providers/logger`);
 
 dotenv.config();
 // local
