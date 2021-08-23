@@ -2,13 +2,17 @@ const { getResponseTemplate } = require( "../../lib/r-back.lib.js");
 const { _CANT_INSERT_NEW_VALUE_,  _RESOURCE_NOT_FOUND_ } = require( "../../providers/error-codes.js");
 const { addNewItem, deteleItem, getData } = require( "./data-helpers.js");
 
+const logger = require("../../providers/logger.js");
 
 exports.crudGetController = async ( rq, rsp ) => {
 	const result = getResponseTemplate();
 	try {
+		logger.info(`get, ${ rq.params.resource }`);
 		const items = await getData( rq.params.resource );
+		logger.info(JSON.stringify(items));
 		result.body.data.items = items;
 	} catch (err) {
+		logger.info(JSON.stringify(error));
 		result.body.errCode = err.code;
 		result.body.errMessage = err.message;
         if ( err.code === _RESOURCE_NOT_FOUND_ ) {

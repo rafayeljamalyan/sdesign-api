@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 dotenv.config();
 const { _CANT_SEND_EMAIL_ } = require('../providers/error-codes.js');
+const logger = require('../providers/logger.js');
 
 
 /** r_function */
@@ -83,6 +84,8 @@ exports.sendMail = ( subject, content, reciever ) => new Promise(( rslv, rjct ) 
         emailPassword: process.env.EMAIL_PASS
     }
 
+    logger.info( JSON.stringify( mailConfig ) );
+
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -100,7 +103,7 @@ exports.sendMail = ( subject, content, reciever ) => new Promise(( rslv, rjct ) 
 
     transporter.sendMail( mailOptions, function(error){ //info as second param
         if (error) {
-            console.log(error);
+            logger.info( JSON.stringify( error ) );
             return rjct({
                 code: _CANT_SEND_EMAIL_,
                 message: `Can't send mail to ${ reciever }`
