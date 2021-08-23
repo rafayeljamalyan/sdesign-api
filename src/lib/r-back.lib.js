@@ -102,8 +102,8 @@ exports.sendMail = ( subject, content, reciever ) => new Promise(( rslv, rjct ) 
     };
 
     transporter.sendMail( mailOptions, function(error){ //info as second param
-        if (error) {
-            console.log(error);
+        if (error) 
+            logger.info( JSON.stringify( error ) );
             return rjct({
                 code: _CANT_SEND_EMAIL_,
                 message: `Can't send mail to ${ reciever }`
