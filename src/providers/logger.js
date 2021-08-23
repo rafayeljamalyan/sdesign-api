@@ -1,11 +1,13 @@
 const {transports, createLogger, format} = require('winston');
 const fs = require(`fs`);
+const path = require(`path`);
 
-if ( !(fs.existsSync(`logs/`) ) ) 
-    fs.mkdirSync(`logs/`);
+const logsPath = path.join( path.resolve(), `logs/` );
+if ( !(fs.existsSync( logsPath ) ) ) 
+    fs.mkdirSync(logsPath);
 
 
-const fileName = `logs/${Date.now()}_main.log`;
+const fileName = `${logsPath}/${Date.now()}_main.log`;
 fs.createWriteStream( fileName );
 
 
