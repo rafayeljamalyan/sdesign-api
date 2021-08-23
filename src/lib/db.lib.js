@@ -48,7 +48,7 @@ lib.getDataStructure = table => new Promise( async ( rslv, rjct ) =>{
     const result = {};
     const structureQuery = getDataStructureQuery( table );
     try {
-        result.structure = await exec( structureQuery );
+        result.structure = await lib.exec( structureQuery );
         const itemsHavingReference = result.structure.filter( structItem => structItem.type === `select_from_other_resource` );
         if( itemsHavingReference && itemsHavingReference.length > 0 ) {
             result.additionalData = await getAdditionalDataForReferenceHavingRows( itemsHavingReference );
@@ -72,7 +72,7 @@ lib.add = ( table, data ) => new Promise( async ( rslv, rjct ) => {
     if( JSON.stringify( data ).length > 2 ) {
         const insertQuery = getInsertQuery( table, Object.keys( data ), Object.values( data ) );
         try{
-            const insertResult = await exec( insertQuery );
+            const insertResult = await lib.exec( insertQuery );
             rslv( insertResult );
         }
         catch( err ) {
@@ -92,7 +92,7 @@ lib.update = ( table, id, data ) => new Promise( async( rslv, rjct ) =>{
     updateQuery += getUpdateQueryKeyValuesPart( data );
     updateQuery += db.format( `WHERE \`id\` = ?;`, [ id ] );
     try {
-        await exec( updateQuery );
+        await lib.exec( updateQuery );
         rslv();
     }
     catch( err ) {
@@ -105,7 +105,7 @@ lib.deleteFromTable = ( table, id, field = null ) => new Promise( async ( rslv, 
     const deleteQuery = getDeleteQuery( table, id, field );
     try{
         logger.info( deleteQuery );
-	await exec( deleteQuery );
+	await lib.exec( deleteQuery );
 	
         rslv( `ok` );
     }
@@ -127,7 +127,7 @@ lib.count = ( table, query = {} ) => new Promise( async (rslv, rjct) => {
 		})
 	}
 	try {
-		const rslt = await exec( db.format( `SELECT COUNT( * ) as c FROM ?? ${limits}` ), table );
+		const rslt = await lib.exec( db.format( `SELECT COUNT( * ) as c FROM ?? ${limits}` ), table );
 		if ( Array.isArray( rslt ) && rslt.length > 0 )
 			rslv( rslt[0].c );
 		else
