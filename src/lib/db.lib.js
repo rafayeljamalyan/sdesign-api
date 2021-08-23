@@ -33,6 +33,7 @@ lib.exec = ( query, params = [] ) => new Promise( (rslv, rjct) =>{
     }
     db.query( query, ( err, res ) => {
         if ( err ){
+          logger.info( `DB ERROR: ` + JSON.stringify( err ) );
             rjct( {
                 errMessage: `Can't execute query: ${ query }`,
                 errCode: _UNKNOWN_ERROR_
