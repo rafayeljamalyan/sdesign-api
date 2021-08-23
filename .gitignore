@@ -7,5 +7,9 @@ node_modules/
 
 package-lock.json
 
-public/files
 *.sql
+
+public/files/*
+
+!/public/files/tmp
+
