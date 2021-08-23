@@ -2,7 +2,7 @@ const { add, get, deleteFromTable } =  require('../../lib/db.lib.js');
 const { db } =  require('../../providers/db.js');
 const { _RESOURCE_NOT_FOUND_ } =  require('../../providers/error-codes.js');
 const resourses =  require('./resource-info.js');
-// const { get, add, update, deleteFromTable }  from './../../lib/db.lib';
+const { get, add, update, deleteFromTable }  = require( './../../lib/db.lib');
 // const { db } from '../../providers/db';
 // const { _RESOURCE_NOT_FOUND_ } from '../../providers/error-codes';
 
