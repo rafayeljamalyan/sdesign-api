@@ -110,6 +110,7 @@ lib.deleteFromTable = ( table, id, field = null ) => new Promise( async ( rslv, 
         rslv( `ok` );
     }
     catch (err) {
+	logger.info( `DELETE ERR0R:` + JSON.stringify( err ) );
         err.errMessage = `Can't delete item with ${field ? `field` :  `id`} ${ field ? field: id} from table ${ table } `;
         rjct( err );
     }
