@@ -5,6 +5,7 @@
 
 // internal dependencies
 const { _UNKNOWN_ERROR_ } = require('../providers/error-codes.js');
+const logger = require('../providers/logger.js');
 const { db } = require( './../providers/db.js');
 
 const lib = {};
@@ -12,11 +13,13 @@ const lib = {};
 lib.get = ( table, params, specificColumns = [], limits = ``, orderColumns = [] ) => new Promise( ( rslv, rjct ) =>{
     const selectQuery = getSelectQuery( table, params, specificColumns, limits, orderColumns );
     db.query( selectQuery, ( err, data ) => {
-        if ( err ) 
-            rjct({
-                errCode: _UNKNOWN_ERROR_,
-                errMessage: `Can't get data from db`
-            })
+        if ( err )  {
+          logger.info( `DB ERROR: ` + JSON.stringify( err ) );
+          rjct({
+              errCode: _UNKNOWN_ERROR_,
+              errMessage: `Can't get data from db`
+          })
+        }
         
         else 
             rslv(data);
