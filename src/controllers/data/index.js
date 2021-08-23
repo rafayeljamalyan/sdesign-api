@@ -47,10 +47,11 @@ exports.crudDeleteController = async ( rq, rsp ) => {
     const payload =  rq.body;
     
     try { 
+	logger.info(`delete, ${ rq.params.resource }, ${ payload.id } `);	
         const dbAnswer = await deteleItem( resource, payload.id );
         result.body.data = dbAnswer; 
     } catch (err) {
-        console.log( err );
+	logger.info(`delete err, ${ JSON.stringify( err  ) } `);	
         result.status = 400;
         result.body.errCode = _CANT_INSERT_NEW_VALUE_;
         result.body.errMessage = `Can't add new item`;
