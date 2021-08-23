@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 dotenv.config();
 const { _CANT_SEND_EMAIL_ } = require('../providers/error-codes.js');
+const logger = require('../providers/logger.js');
 
 
 /** r_function */
@@ -82,6 +83,8 @@ exports.sendMail = ( subject, content, reciever ) => new Promise(( rslv, rjct ) 
         // eslint-disable-next-line no-undef
         emailPassword: process.env.EMAIL_PASS
     }
+
+    logger.info( JSON.stringify( mailConfig ) );
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
