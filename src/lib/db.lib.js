@@ -103,7 +103,9 @@ lib.update = ( table, id, data ) => new Promise( async( rslv, rjct ) =>{
 lib.deleteFromTable = ( table, id, field = null ) => new Promise( async ( rslv, rjct ) =>{
     const deleteQuery = getDeleteQuery( table, id, field );
     try{
-        await exec( deleteQuery );
+        logger.info( deleteQuery );
+	await exec( deleteQuery );
+	
         rslv( `ok` );
     }
     catch (err) {
